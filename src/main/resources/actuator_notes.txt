@@ -1,0 +1,170 @@
+
+SpringBoot Actuator:
+********************
+
+-> SpringBoot Actuator provides production ready endpoints/features such as monitoring, metrics and health checks.
+
+-> The Springboot Actuator enables to Monitor the Application using HTTP endpoints.
+
+-> SpringBoot provides 'spring-boot-starter-actuator' dependency to auto-configure Actuator.
+
+Commonly used Actuator Endpoints:
+---------------------------------
+1) /info endpoint
+2) /health endpoint
+3) /beans endpoint
+4) /conditions endpoint
+5) /mappings endpoint
+6) /configprops endpoint
+7) /metrics endpoint
+8) /env endpoint
+9) /threaddump endpoint
+10) /loggers endpoint
+11) /shutdown endpoint
+
+1) /info endpoint:
+*******************
+
+- If we add any information about the application, then we can view using /info endpoint.
+
+>> >> to enable all actuator endpoints then we can add below property
+
+management.endpoints.web.exposure.include=*
+
+>> >> to enable info endpoint then we can add below property
+
+management.info.env.enabled=true
+
+//adding Custom details  
+info.app.name = springboot app
+info.app.description = springboot
+info.app.version = 1.0.0
+
+----------------------------------------
+Enter below URL in the Browser to access /info details : 
+
+http://localhost:8081/actuator/info
+{
+app: {
+name: "Blog Application",
+description: "Add Posts with Comments",
+version: "1.0.0"
+}
+}
+_________________________________________
+
+2) /health endpoint:
+********************
+- /health endpoint shows the Application Health including Disk space, Databases..etc
+
+add below property to view diskspace and etc
+
+management.endpoint.health.show-details=always
+
+Enter URL in the Browser : 
+http://localhost:8080/actuator/health
+
+_________________________________________
+
+3) /beans endpoint :
+********************
+
+- /beans endpoint shows all the registered beans in the Application.
+
+http://localhost:8080/actuator/beans
+
+_________________________________________
+
+4) /conditions endpoint :
+*************************
+
+- The /conditions endpoint shows the Auto Configuration report, catergorized into pasitive and negative matches.
+
+http://localhost:8080/actuator/conditions
+
+_________________________________________
+
+5) /mappings endpoint :
+***********************
+- The /mappings endpoint shows all the @RequestMapping paths declared in the Application.
+
+- This is very helpful for checking which request path will be hadled by which controller method.
+
+http://localhost:8080/actuator/mappings
+
+_________________________________________
+
+6) /configprops endpoint :
+**************************
+
+- The /configprops endpoint offers all the configuration properties defined by @ConfigurationProperties bean, including config properties defined in the application.properties or YAML files.
+
+http://localhost:8080/actuator/configprops
+
+_________________________________________
+
+7) /metrics endpoint :
+***********************
+
+- The /metrics endpoint shows various metrics about current application such as 
+ -> how much memory it is using
+ -> how much memory is Free
+ -> Size of the Heap Used
+ -> Number of Used Threads,..
+
+http://localhost:8080/actuator/metrics
+
+_________________________________________
+
+8) /env endpoint :
+*******************
+
+- The /env endpoint exposes all the properties from the Spring ConfigurableEnvironment interface, such as a list of active profiles, application properties, system environment variables and so on.
+
+http://localhost:8080/actuator/env
+
+_________________________________________
+
+9) /threaddump endpoint :
+*************************
+- Using /threaddump endpoint, we can view the application therad dump with running threads details and JVM stack trace.
+
+http://localhost:8080/actuator/threaddump
+
+_________________________________________
+
+10) /loggers endpoint :
+************************
+
+- The /loggers endpoint allows to view and configure the Log Levels of the Application at runtime.
+
+
+http://localhost:8080/actuator/loggers
+
+http://localhost:8080/actuator/loggers/{name}
+Ex:
+http://localhost:8080/actuator/loggers/com.swamy
+
+________________________________________________
+POST	http://localhost:8081/actuator/loggers/com.swamy
+
+{
+	"configuredLevel" : "DEBUG"
+}
+________________________________________________
+
+
+________________________________________________
+
+11) /shutdown endpoint :
+************************
+- The /shutdown endpoint can be used to shutdown the application.
+
+- This endpoint not enabled by default. we can enable by using below property
+
+management.endpoints.shutdown.enabled=true
+
+> After adding this property then we can send HTTP POST Request as follows.
+
+http://localhost:8080/actuator/shutdown
+
